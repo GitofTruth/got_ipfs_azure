@@ -1,0 +1,69 @@
+Vagrant.configure('2') do |config|
+  config.vm.box = 'azure'
+
+  config.vm.define "got-bootpeer1"
+
+  # use local ssh key to connect to remote vagrant box
+#config.ssh.private_key_path = '~/.ssh/id_rsa'
+config.ssh.private_key_path = File.join(File.dirname(__FILE__), 'azure_private_key.id_rsa')
+config.vm.provider :azure do |azure, override|
+
+
+    # each of the below values will default to use the env vars named as below if not specified explicitly
+    azure.tenant_id = ENV['AZURE_TENANT_ID']
+    azure.client_id = ENV['AZURE_CLIENT_ID']
+    azure.client_secret = ENV['AZURE_CLIENT_SECRET']
+    azure.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+    azure.location='southcentralus'
+
+    azure.vm_size ='Standard_D2s_v3'
+
+  #  azure.resource_group_name='delicate-sunset-19'
+    azure.virtual_network_name='vagrantVNET'
+    azure.vm_name='got-bootpeer1'
+  end
+
+    
+    # Network Settings
+    # config.vm.network "forwarded_port", guest: 80, host: 8080
+    # # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    # config.vm.network :forwarded_port, guest: 4001, host: 4002
+    # config.vm.network :forwarded_port, guest: 5001, host: 5002
+    # config.vm.network :forwarded_port, guest: 8080, host: 8081
+
+    # config.vm.network :forwarded_port, guest: 8545, host: 8546
+    # config.vm.network :forwarded_port, guest: 9094, host: 9093
+    # config.vm.network :forwarded_port, guest: 3000, host: 3000
+    # config.vm.network "public_network"
+  
+    # Folder Settings
+    # config.vm.synced_folder ".", "/", :nfs => {:mount_options => ["dmode=777", "fmode=666"]}
+    # config.vm.synced_folder ".", "/home/peer1/"
+    # config.vm.synced_folder "../setup", "/var/local", type:"rsync", rsync__auto: true
+    config.nfs.functional = true
+    config.vm.synced_folder "../setup", "/var/local",type:"rsync", automount: true
+
+    # vagrant plugin install vagrant-rsync-back
+
+    # vagrant rsync-back
+
+    # vagrant rsync-auto --poll drupal
+
+
+    # Provision Settings
+    # config.vm.provision "shell", inline: <<-SHELL
+    #   apt-get update
+    #   apt-get install -y apache2
+    # SHELL
+  
+    config.vm.provision "shell", path: "../setup/bootstrap-ipfs.sh"
+
+    # config.ssh.password = 'empty'
+
+    # VAGRANT_COMMAND = ARGV[0]
+    # if VAGRANT_COMMAND == "ssh"
+    #   config.ssh.username = 'peer1'
+    # end
+
+end
+
