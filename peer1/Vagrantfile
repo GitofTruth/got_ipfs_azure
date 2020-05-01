@@ -1,7 +1,7 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'azure'
 
-  config.vm.define "got-bootpeer1"
+  config.vm.define "bootpeer-1"
 
   # use local ssh key to connect to remote vagrant box
 #config.ssh.private_key_path = '~/.ssh/id_rsa'
@@ -16,11 +16,12 @@ config.vm.provider :azure do |azure, override|
     azure.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
     azure.location='southcentralus'
 
-    azure.vm_size ='Standard_D2s_v3'
+    azure.vm_size ='Standard_DS1_v2'
 
-  #  azure.resource_group_name='delicate-sunset-19'
-    azure.virtual_network_name='vagrantVNET'
-    azure.vm_name='got-bootpeer1'
+    azure.resource_group_name='got-ipfs-1'
+    azure.virtual_network_name='got-ipfs-VNET1'
+    azure.subnet_name = 'subnet-1'
+    azure.vm_name='got-bootstrap-peer-1'
   end
 
     

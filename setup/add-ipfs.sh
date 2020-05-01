@@ -13,8 +13,8 @@ ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8080
 
 ipfs config show
 
-# ipfs bootstrap add /ip4/23.96.46.70/tcp/4001/ipfs/QmXNj3UugaRGZUtR9JWPZuwYu44yAzNM4HopCgdVi3p5uk
-ipfs bootstrap add /ip4/10.0.0.4/tcp/4001/ipfs/QmXNj3UugaRGZUtR9JWPZuwYu44yAzNM4HopCgdVi3p5uk
+# ipfs bootstrap add /ip4/23.96.46.70/tcp/4001/ipfs/QmYCi7C3jBdEbBKH5GbQAdZ1MuAuQGTS4sBNe99dS3AoxE
+ipfs bootstrap add /ip4/10.0.0.4/tcp/4001/ipfs/QmcsW4sze6jiwpxLBADk781ZeDqFGFpFcChbWnZN2WKpwv
 
 export LIBP2P_FORCE_PNET=1
 sudo rm -rf /etc/systemd/system/ipfs.service
